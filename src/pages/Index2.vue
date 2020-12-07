@@ -51,7 +51,7 @@
                       v-if="this.dataExportStep1 !=null"
                       :data="this.dataExportStep1.json_data"
                       :fields="this.dataExportStep1.json_fields"
-                      name="merge_step_1.xlsx"
+                      name="merge_step_1.xls"
                     >
                       <q-btn
                         class="full-width"
@@ -140,7 +140,7 @@
                       v-if="this.resultARStep2.length >0"
                       :data="this.resultARStep2"
                       :fields="this.resultARStep2_fields"
-                      name="merge_step_1.xlsx"
+                      name="merge_step_1_ar.xls"
                     >
                       <q-btn
                         class="full-width"
@@ -159,7 +159,7 @@
                       v-if="this.resultOATStep2.length >0"
                       :data="this.resultOATStep2"
                       :fields="this.resultOATStep2_fields"
-                      name="merge_step_1.xlsx"
+                      name="merge_step_2_oat.xls"
                     >
                       <q-btn
                         class="full-width"
