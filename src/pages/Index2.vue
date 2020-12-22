@@ -46,7 +46,7 @@
                   </div>
                   <div class="col-3"></div>
                   <div class="col-3"></div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <download-excel
                       v-if="this.dataExportStep1 !=null"
                       :data="this.dataExportStep1.json_data"
@@ -63,9 +63,7 @@
                       />
                     </download-excel>
                   </div>
-                  <div class="col-3"></div>
-                  <div class="col-3"></div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <download-excel
                       v-if="this.dataExportStep1 !=null"
                       :data="this.dataExportStep1.json_data.filter(f=>f.keterangan !=='')"
@@ -75,10 +73,10 @@
                       <q-btn
                         class="full-width"
                         size="lg"
-                        label="Download"
-                        unelevated
+                        label="Download Keterangan"
+                        outline
                         color="teal"
-                        icon="get_app"
+                        icon="filter_alt"
                       />
                     </download-excel>
                   </div>
@@ -92,8 +90,8 @@
           header-class="bg-grey-3"
           group="somegroup"
           icon="filter_2"
-          label="Lookup AR vs OAT"
-          caption="Upload AR & OAT">
+          label="Lookup AR01 vs OAT"
+          caption="Upload AR01 & OAT">
           <q-separator />
           <q-card>
             <q-card>
@@ -102,7 +100,7 @@
                 <div class="col-12">
                   <q-file
                     v-model="fileAR"
-                    label="Pick files AR"
+                    label="Pick files AR01"
                     accept=".xlsx, .xlsm, .xls, .csv"
                     outlined
                     use-chips
@@ -164,7 +162,7 @@
                       <q-btn
                         class="full-width"
                         size="lg"
-                        label="Download AR"
+                        label="Download AR01"
                         unelevated
                         color="teal"
                         icon="get_app"
