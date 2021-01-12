@@ -32,8 +32,8 @@
                   </q-file>
                 </div>
                 <div class="col-12 row justify-center q-col-gutter-lg q-mt-md">
-                  <div class="col-3"></div>
-                  <div class="col-6">
+                  <div class="col-2"></div>
+                  <div class="col-8">
                     <q-btn
                       icon="publish"
                       class="full-width"
@@ -44,9 +44,9 @@
                       @click="onLoadStep1"
                     />
                   </div>
-                  <div class="col-3"></div>
-                  <div class="col-3"></div>
-                  <div class="col-3">
+                  <div class="col-2"></div>
+                  <div class="col-2"></div>
+                  <div class="col-8">
                     <download-excel
                       v-if="this.dataExportStep1 !=null"
                       :data="this.dataExportStep1.json_data"
@@ -63,7 +63,9 @@
                       />
                     </download-excel>
                   </div>
-                  <div class="col-3">
+                  <div class="col-2"></div>
+                  <div class="col-2"></div>
+                  <div class="col-8">
                     <download-excel
                       v-if="this.dataExportStep1 !=null"
                       :data="this.dataExportStep1.json_data.filter(f=>f.keterangan !=='')"
@@ -73,14 +75,46 @@
                       <q-btn
                         class="full-width"
                         size="lg"
-                        label="Download Keterangan"
+                        label="Keterangan"
                         outline
-                        color="teal"
+                        color="purple"
                         icon="filter_alt"
                       />
                     </download-excel>
+                    <br/>
+                    <download-excel
+                      v-if="this.dataExportStep1 !=null"
+                      :data="data_step_1_input_manual.filter(f=>f.check !=='FALSE')"
+                      :fields="fields_step_1_input_manual"
+                      name="merge_step_1_keterangan_filtered.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="Check Input Manual"
+                        outline
+                        color="red"
+                        icon="pan_tool"
+                      />
+                    </download-excel>
+                    <br/>
+                    <download-excel
+                      v-if="this.dataExportStep1 !=null"
+                      :data="data_step_1_input_manual.filter(f=>f.room_opname !==f.room_sap)"
+                      :fields="fields_step_1_input_manual"
+                      name="merge_step_1_keterangan_filtered.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="Check Room"
+                        outline
+                        color="indigo"
+                        icon="meeting_room"
+                      />
+                    </download-excel>
                   </div>
-                  <div class="col-3"></div>
+                  <div class="col-2"></div>
                 </div>
               </div>
             </q-card-section>
@@ -152,36 +186,164 @@
                   </div>
                   <div class="col-3"></div>
                   <div class="col-3"></div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <download-excel
                       v-if="this.resultARStep2.length >0"
-                      :data="this.resultARStep2"
+                      :data="this.resultARStep2.filter(f=>f.find_on_oat ==='N/A')"
                       :fields="this.resultARStep2_fields"
                       name="merge_step_1_ar.xls"
                     >
                       <q-btn
                         class="full-width"
                         size="lg"
-                        label="Download AR01"
+                        label="AR01 N/A"
                         unelevated
-                        color="teal"
+                        color="pink"
                         icon="get_app"
                       />
                     </download-excel>
                   </div>
-                  <div class="col-3"></div>
-                  <div class="col-3"></div>
-                  <div class="col-6">
+                  <div class="col-3">
                     <download-excel
                       v-if="this.resultOATStep2.length >0"
-                      :data="this.resultOATStep2"
+                      :data="this.resultOATStep2.filter(f=>f.find_on_ar ==='N/A')"
                       :fields="this.resultOATStep2_fields"
                       name="merge_step_2_oat.xls"
                     >
                       <q-btn
                         class="full-width"
                         size="lg"
-                        label="Download OAT"
+                        label="OAT N/A"
+                        unelevated
+                        color="pink"
+                        icon="get_app"
+                      />
+                    </download-excel>
+                  </div>
+                  <div class="col-3"></div>
+                  <!-- match-->
+                  <div class="col-3"></div>
+                  <div class="col-3">
+                    <download-excel
+                      v-if="this.resultARStep2.length >0"
+                      :data="this.resultARStep2.filter(f=>f.find_on_oat !=='N/A').map(m=>{ delete m.check;return m })"
+                      :fields="this.resultARStep2_fields"
+                      name="merge_step_1_ar.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="AR01 Match"
+                        unelevated
+                        color="green"
+                        icon="get_app"
+                      />
+                    </download-excel>
+                  </div>
+                  <div class="col-3">
+                    <download-excel
+                      v-if="this.resultOATStep2.length >0"
+                      :data="this.resultOATStep2.filter(f=>f.find_on_ar !=='N/A').map(m=>{ delete m.find_mutasi;return m })"
+                      :fields="this.resultOATStep2_fields"
+                      name="merge_step_2_oat.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="OAT Match"
+                        unelevated
+                        color="green"
+                        icon="get_app"
+                      />
+                    </download-excel>
+                  </div>
+                  <div class="col-3"></div>
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+          </q-card>
+        </q-expansion-item>
+        <q-expansion-item
+          header-class="bg-grey-3"
+          group="somegroup"
+          icon="filter_3"
+          label="Report"
+          caption="Upload">
+          <q-separator />
+          <q-card>
+            <q-card>
+            <q-card-section>
+              <div class="row q-col-gutter-md  q-ma-lg">
+                <div class="col-12">
+                  <q-file
+                    v-model="fileAREdited"
+                    label="Pick files AR"
+                    accept=".xlsx, .xlsm, .xls, .csv"
+                    outlined
+                    use-chips
+                  >
+                    <template v-slot:prepend>
+                      <q-icon name="attach_file" />
+                    </template>
+                  </q-file>
+                </div>
+                <div class="col-12 row justify-center q-col-gutter-lg q-mt-md">
+                  <div class="col-3"></div>
+                  <div class="col-6">
+                    <q-btn
+                      icon="publish"
+                      class="full-width"
+                      size="lg"
+                      unelevated
+                      color="primary"
+                      label="load file"
+                      @click="onLoadStep4"
+                    />
+                  </div>
+                  <div class="col-3"></div>
+                  <div class="col-3"></div>
+                  <div class="col-6">
+                    <download-excel
+                      v-if="this.dataAREdited.length >0"
+                      :data="this.dataAREdited.filter(f=>['','BELI'].includes(f.check) || f.check.includes('MUTASI'))"
+                      :fields="this.dataARFieldEdited"
+                      name="merge_step_5_pivoted.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="Fisik Ada Catatan Ada"
+                        unelevated
+                        color="teal"
+                        icon="get_app"
+                      />
+                    </download-excel><br/>
+                    <download-excel
+                      v-if="this.dataAREdited.length >0"
+                      :data="this.dataAREdited.filter(f=>f.check.toLowerCase().includes('hilang'))"
+                      :fields="this.dataARFieldEdited"
+                      name="merge_step_5_pivoted.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="Fisik Tidak Ada Catatan Ada"
+                        unelevated
+                        color="teal"
+                        icon="get_app"
+                      />
+                    </download-excel><br/>
+                    <download-excel
+                      v-if="this.dataAREdited.length >0"
+                      :data="this.dataAREdited.filter(f=>f.check.toLowerCase().includes('temuan'))"
+                      :fields="this.dataARFieldEdited"
+                      name="merge_step_5_pivoted.xls"
+                    >
+                      <q-btn
+                        class="full-width"
+                        size="lg"
+                        label="Fisik Ada Catatan Tidak Ada"
                         unelevated
                         color="teal"
                         icon="get_app"
@@ -272,6 +434,8 @@ export default {
       files: [],
       dataStep1: [],
       headerStep1: [],
+      data_step_1_input_manual: [],
+      fields_step_1_input_manual: {},
       dataExportStep1: null,
       fileAR:null,
       fileOAT:null,
@@ -288,6 +452,14 @@ export default {
 
       resultPivotStep3:[],
       resultPivotStep3_fields:{},
+
+      fileAREdited:[],
+      dataAREdited:[],
+      dataARFieldEdited:{},
+
+      fileOATEdited:[],
+      dataOATEdited:[],
+      dataOATFieldEdited:{},
     };
   },
   methods: {
@@ -296,6 +468,7 @@ export default {
         let counter = 0;
         for (let i = 0; i < this.files.length; i++) {
           let result = await this.onFileChangeStep1(this.files[i]);
+
           let data = result.data.map((m) => {
             return {
               ba: result.baCode,
@@ -309,6 +482,13 @@ export default {
               keterangan: m["__EMPTY_6"] || "",
               input_manual: m["__EMPTY_7"],
             };
+          })
+
+          this.data_step_1_input_manual = data.map(m=>{
+            return {
+              ...m,
+              check:m.input_manual === 'TRUE' || m.input_manual === 'NA' ? (m.asset_status_code.toLowerCase().includes("label baik") ? 'CHECK' : 'OK') : 'FALSE'
+            }
           });
 
           this.dataStep1 = [...this.dataStep1, ...data];
@@ -318,6 +498,10 @@ export default {
             for (const [key, value] of Object.entries(this.dataStep1[0])) {
               json_fields[key] = key;
             }
+            for (const [key, value] of Object.entries(this.data_step_1_input_manual[0])) {
+              this.fields_step_1_input_manual[key] = key;
+            }
+
             this.dataExportStep1 = {
               json_fields: json_fields,
               json_data: this.dataStep1,
@@ -370,6 +554,26 @@ export default {
           };
           reader.readAsBinaryString(file);
         });
+      }
+    },
+    async onLoadStep4(){
+      if(this.fileAREdited){
+        this.$q.loading.show({
+            message: 'Please wait'
+          })
+        let objectAR = await this.onFileChangeStep2(this.fileAREdited, 'CASE1')
+
+        this.dataAREdited = [...objectAR]
+
+        for (const [key, value] of Object.entries(objectAR[0])) {
+              this.dataARFieldEdited[key] = key;
+            }
+        this.$q.loading.hide()
+      }
+    },
+    async onLoadStep5(){
+      if(this.fileOATEdited){
+
       }
     },
     async onLoadStep3() {
@@ -478,7 +682,6 @@ export default {
     },
     parser(type, data){
       if(type ==='AR'){
-
         return data.map(m=>{
                 return {
                   asset :m.Asset,
@@ -489,10 +692,11 @@ export default {
                   class :m.Class,
                   or_asset :m['Or. asset'],
                   s_no :m['SNo.'],
-                  book_val :m['      Book val.'],
-                  accum_dep :m['     Accum.dep.'],
                   acquis_val :m['    Acquis.val.'],
-                  deact_date :date.formatDate(m['Deact.Date'], "YYYY-MM-DD") || '',
+                  accum_dep :m['     Accum.dep.'],
+                  book_val :m['      Book val.'],
+                  cost_center :m['Rsp.CCtr'],
+                  room :m['Room'],
                   concate : `${m.Asset} ${m['SNo.']}`,
                   concate_or : `${m['Or. asset']} ${m['SNo.']}`
                 }
@@ -503,6 +707,16 @@ export default {
           return {
             ...m,
             tanggal_scan:date.formatDate(m.tanggal_scan, "YYYY-MM-DD") || '',
+          }
+        })
+      }
+      if(type ==='CASE1'){
+        return data.map(m=>{
+          return {
+            ...m,
+            cap_date:date.formatDate(m.cap_date, "YYYY-MM-DD") || '',
+            tanggal_sto:date.formatDate(m.tanggal_sto, "YYYY-MM-DD") || '',
+            check:m.check || '',
           }
         })
       }
@@ -525,7 +739,7 @@ export default {
         for (const [key, value] of Object.entries(this.resultARStep2[1])) {
             this.resultARStep2_fields[key] = key;
         }
-        this.resultARStep2 = this.resultARStep2.filter(f=>f.find_on_oat ==='N/A')
+        this.resultARStep2 = this.resultARStep2
         this.resultOATStep2 = this.dataOAT.map(m=>{
           let mutasi_ba = this.dataAR.find(f=>f.concate_or === m.asset_no) ? `MUTASI KE ${this.dataAR.find(f=>f.concate_or === m.asset_no).bus_a}` : 'CEK'
           return {
@@ -537,7 +751,7 @@ export default {
         for (const [key, value] of Object.entries(this.resultOATStep2[5])) {
             this.resultOATStep2_fields[key] = key;
         }
-        this.resultOATStep2 = this.resultOATStep2.filter(f=>f.find_on_ar ==='N/A')
+        this.resultOATStep2 = this.resultOATStep2
         this.$q.loading.hide()
       }, 500);
 
