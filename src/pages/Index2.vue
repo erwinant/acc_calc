@@ -360,7 +360,7 @@
         <q-expansion-item
           header-class="bg-grey-3"
           group="somegroup"
-          icon="filter_3"
+          icon="filter_4"
           label="Grouping By Asset Status"
           caption="Upload OAT">
           <q-separator />
