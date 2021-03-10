@@ -476,7 +476,7 @@ export default {
               room_sap: m["__EMPTY"],
               description: m["__EMPTY_1"],
               room_opname: m["__EMPTY_2"],
-              asset_status_code: m["__EMPTY_3"],
+              asset_status_code: m["__EMPTY_3"]||'',
               tanggal_scan: date.formatDate(m["__EMPTY_4"], "YYYY-MM-DD"),
               waktu_scan: m["__EMPTY_5"],
               keterangan: m["__EMPTY_6"] || "",
